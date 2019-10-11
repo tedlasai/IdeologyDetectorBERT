@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Django Hello World Example</title>
+    <style>
+
+        .form {
+            rows: 100;
+        }
+
+        .Liberal {
+            color: blue;
+        }
+
+        .Conservative {
+            color: maroon;
+        }
+
+        @media (min-width: 768px) {
+            .h-md-100 {
+                height: 100vh;
+            }
+        }
+
+        .btn-round {
+            border-radius: 30px;
+        }
+
+        .bg-indigo {
+            background: indigo;
+        }
+
+        .text-cyan {
+            color: #35bdff;
+        }
+    </style>
+</head>
+
+
+<div class="m-0 p-0 d-flex flex-column h-md-100">
+
+    <div class="row p-0">
+        <h1 class="w-100 text-center">Political Ideology Detector</h1>
+    </div>
+
+
+    <!-- First Half -->
+    <div class="row p-0 flex-grow-1">
+        <div class="col-md-6 p-0 bg-indigo">
+            <div class="text-white align-items-center h-100 p-2 text-center justify-content-md-center">
+
+                <div class="row">
+                    <h2 class="w-100 text-center">Enter Article Text</h2>
+                </div>
+
+                <div class="row align-self-center justify-content-center">
+                    <div class="h-50 row">
+                        <h6> Processing Currently Takes Approximately 1 min.</h6>
+
+                    </div>
+                </div>
+                <div class="row align-self-center justify-content-center">
+                    <div class="h-50 row">
+                         <h6>This will be reduced soon when we change the model to persist on the server.</h6>
+                    </div>
+                </div>
+                <div class="row align-self-center justify-content-center p-1 form-row">
+                    <div class="col-md-12 pl-4">
+
+
+                        <form method="post" id="textParser">
+                            {% csrf_token %}
+                            {{ form }}
+
+                        </form>
+                    </div>
+                    </form>
+                </div>
+
+                <button type="submit" form="textParser">Submit</button>
+            </div>
+
+        </div>
+
+        <!-- Second Half -->
+        <div class="col-md-6">
+            <div class="align-items-center p-2" style = "height:100%">
+                <div class="row">
+                    <h2 class="w-100 text-center">Labeled Text</h2>
+                </div>
+                <div class="row align-self-center justify-content-center">
+                    <div class="h-50 row">
+                        <h6 class="pr-2">Red = Conservative </h6><h6 class="pl-2"> Blue = Liberal</h6>
+                    </div>
+                </div>
+                <div class="row align-self-end pre-scrollable" style = "max-height:30em">
+                    {% for sentence, label in sentenceData.items %}
+                        <h6 class="{{ label }}">
+                            {{ sentence }}
+                        </h6>
+                    {% endfor %}
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
